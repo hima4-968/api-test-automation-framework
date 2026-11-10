@@ -1,0 +1,14 @@
+target/
+test-output/
+allure-results/
+allure-report/
+.settings/
+.classpath
+.project
+bin/
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db
+.env
