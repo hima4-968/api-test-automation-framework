@@ -56,4 +56,7 @@ public final class ConfigManager {
     public static String soapCalculatorUrl() { return get("soap.calculatorUrl"); }
 
     public static String goRestToken()     { return secret("GOREST_TOKEN"); }
+    
+    public static String bookerUsername() { return get("booker.username"); }
+    public static String bookerPassword() { return get("booker.password"); }
 }
