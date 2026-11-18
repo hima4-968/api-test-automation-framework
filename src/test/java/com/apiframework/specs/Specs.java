@@ -30,6 +30,15 @@ public final class Specs {
                 .addHeader("Authorization", "Bearer " + ConfigManager.goRestToken())   // token from the environment 🔒
                 .build();
     }
+    
+    
+    public static RequestSpecification goRestNoAuth() {
+        return new RequestSpecBuilder()
+                .setBaseUri(ConfigManager.goRestBaseUrl())
+                .setContentType(ContentType.JSON)
+                .addHeader("Accept", "application/json")
+                .build();
+    }
 
     /** Common setup for every Petstore request. */
     public static RequestSpecification petstore() {

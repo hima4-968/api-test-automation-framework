@@ -7,7 +7,7 @@ import com.apiframework.clients.UserClient;
 import com.apiframework.data.DataFactory;
 import com.apiframework.models.request.CreateUserRequest;
 import com.apiframework.models.response.UserResponse;
-
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import io.restassured.response.Response;
 
 public class UserCrudTests {
@@ -37,6 +37,15 @@ public class UserCrudTests {
 		Assert.assertEquals(fetched.getGender(), sentUser.getGender());
 		Assert.assertEquals(fetched.getStatus(), sentUser.getStatus());
 	}
+	
+	@Test(dependsOnMethods="getUserShouldReturnIdAndcreatedData", description="The user response matches the user schema")
+	void getUserShouldMatchSchema()
+	{
+		Response response = userClient.getUserResponse(userId);
+		response.then()
+		        .statusCode(200)
+		        .body(matchesJsonSchemaInClasspath("schemas/user.json"));
+	}
 
 	@Test(dependsOnMethods = "getUserShouldReturnIdAndcreatedData", description = "Deleting user returns 204")
 	void deleteUserShouldReturn204() {
@@ -48,5 +57,9 @@ public class UserCrudTests {
 	void getDeletedUserShouldReturn404() {
 		Response response = userClient.getUserResponse(userId);
 		Assert.assertEquals(response.getStatusCode(), 404);
+		
 	}
+	
+	
+
 }

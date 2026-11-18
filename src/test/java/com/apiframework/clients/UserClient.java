@@ -28,5 +28,18 @@ public class UserClient {
 	public Response getUserResponse(long userId) {
 		return given().spec(Specs.goRest()).pathParam("id", userId).when().get(Routes.USER_BY_ID);
 	}
+	
+	public Response createUserWithoutToken(CreateUserRequest user) {
+		return given().spec(Specs.goRestNoAuth()).body(user).when().post(Routes.USERS);
+	}
+	
+	public Response createUserWithToken(CreateUserRequest user, String token) {
+	    return given().spec(Specs.goRestNoAuth()).auth().oauth2(token).body(user).when().post(Routes.USERS);
+	}
+	
+	public Response createUserResponse(CreateUserRequest user) {
+	    return given().spec(Specs.goRest()).body(user).when().post(Routes.USERS);
+	}
+	
 
 }
